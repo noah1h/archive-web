@@ -227,13 +227,13 @@
      
     </section>
     <section id="contacts">
-      <div class="title-container text-center pb-5 pt-5">
+      <div class="title-container text-center pb-5 pt-5 mb-5">
         <div class="chapter-text-2 scramble-hover">CHAPTER 4:</div>
         <span class="section-title">INITIATE CONNECTION</span>
       </div>
       <div class="container-fluid contact-section-wrapper">
-          
-          <div class="col-lg-4">
+          <div class="row">
+          <div class="col-md-4">
             <div class="contact-info">
               <div class="info-title">SYSTEM_COORDINATES</div>
               <ul class="info-container">
@@ -249,13 +249,52 @@
             </div>
           </div>
           
-          <div class="col-lg-8">
-            <div class="contact-form">
+          <div class="col-md-8">
+              <div class="contact-form-section flex-fill">
+                <div class="title form-title text-center">EXECUTE_TRANSMISSION</div>
+                
+                <!-- Success Message -->
+                <div class="success-message" id="successMessage"></div>
+                
+                <form action="php/contact-handler.php" class="contact-form" id="contactForm">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                      <input type="text" name="firstName" class="first-name-input" placeholder="First Name" required>
+                      <div class="error-message"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                      <input type="text" name="lastName" class="last-name-input" placeholder="Last name" required>
+                      <div class="error-message"></div>
+                    </div>
+                    <div class="col-12">
+                      <input type="email" name="email" class="email-input" placeholder="Email" required>
+                      <div class="error-message"></div>
+                    </div>
+                    <div class="col-12">
+                      <input type="text" name="subject" class="subject-input" placeholder="Subject" required>
+                      <div class="error-message"></div>
+                    </div>
+                    <div class="col-12">
+                      <textarea name="message" placeholder="Your Message" required></textarea>
+                      <div class="error-message"></div>
+                    </div>
+                    
+                    <!-- Honeypot field (hidden from users, catches bots) -->
+                    <input type="text" name="website" style="position:absolute;left:-9999px;width:1px;height:1px;" tabindex="-1" autocomplete="off">
+                    
+                    <div class="col-12">
+                      <button type="submit" class="form-submit">
+                        <span class="submit-btn-text">Submit</span>
+                      </button>
+                    </div>
+                  </div>
+                </form>
             </div>
           </div>
       
         </div>
       </div>
+    </div>
     </section>
     </main>
     <script

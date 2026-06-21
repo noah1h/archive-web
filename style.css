@@ -738,3 +738,59 @@ ul {
   font-size: 14px; /* Slightly smaller text accentuation */
   line-height: 1.6;
 }
+.contact-form-section input, .contact-form textarea {
+  color: white;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: var(--description) 1px solid;
+  margin-top: 20px;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+.contact-form-section * {
+  font-family: var(--secondary-font);
+}
+.contact-form-section textarea {
+  resize: none;
+  height: 130px;
+}
+.form-submit {
+  border: none;
+  background-color: var(--color-light) !important;
+  color: var(--color-dark);
+  padding: 10px 20px;
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.contact-form-section input::placeholder, .contact-form textarea::placeholder {
+  transition: all 0.3s ease;
+}
+.contact-form-section input:focus, .contact-form textarea:focus {
+    outline: none; 
+    border-bottom: 1px solid white; 
+}
+.contact-form-section input:focus::placeholder, .contact-form textarea:focus::placeholder {
+    color: var(--secondary-color);
+}
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+.form-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  border-radius: 0;
+  clip-path: var(--shape-mid);
+}
+.form-title {
+  font-size: 30px;
+  font-weight: 700;
+}

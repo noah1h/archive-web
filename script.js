@@ -364,3 +364,198 @@ gsap.utils.toArray(".content-block").forEach((block) => {
     }
   });
 });
+
+const contactForm = document.querySelector('.contact-form');
+
+function startScramble(element, finalText = "Submitting") {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let frame = 0;
+
+  const interval = setInterval(() => {
+    element.textContent = finalText
+      .split("")
+      .map((char, index) => {
+        if (char === " ") return " ";
+
+        if (index < frame) {
+          return finalText[index];
+        }
+
+        return chars[Math.floor(Math.random() * chars.length)];
+      })
+      .join("");
+
+    frame += 0.3;
+
+    // Loop forever until stopped
+    if (frame >= finalText.length) {
+      frame = 0;
+    }
+  }, 40);
+
+  return interval;
+}
+
+function stopScramble(interval, element, text = "Submit") {
+  clearInterval(interval);
+  element.textContent = text;
+}
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const firstName = document.querySelector('.first-name-input');
+    const lastName = document.querySelector('.last-name-input');
+    const subject = document.querySelector('.subject-input');
+    const email = document.querySelector('.email-input');
+    const message = document.querySelector('textarea');
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function showError(input, message) {
+      const errorDiv = input.parentElement.querySelector('.error-message');
+      errorDiv.textContent = message;
+      input.style.border = '2px solid red';
+    }
+
+    function clearError(input) {
+      const errorDiv = input.parentElement.querySelector('.error-message');
+      errorDiv.textContent = '';
+      input.style.border = '';
+    }
+
+    function showMessage(message, type) {
+      const existingAlert = document.querySelector('.form-message');
+      if (existingAlert) existingAlert.remove();
+
+      const alertDiv = document.createElement('div');
+      alertDiv.className = 'form-message';
+      alertDiv.style.marginTop = '20px';
+      alertDiv.style.padding = '15px';
+      alertDiv.style.borderRadius = '5px';
+      alertDiv.style.backgroundColor =
+        type === 'success' ? '#d4edda' : '#f8d7da';
+      alertDiv.style.color =
+        type === 'success' ? '#155724' : '#721c24';
+      alertDiv.style.border =
+        `1px solid ${type === 'success' ? '#c3e6cb' : '#f5c6cb'}`;
+
+      alertDiv.textContent = message;
+
+      contactForm.appendChild(alertDiv);
+
+      if (type === 'success') {
+        setTimeout(() => {
+          if (alertDiv.parentNode) {
+            alertDiv.remove();
+          }
+        }, 5000);
+      }
+    }
+
+    let isValid = true;
+
+    if (firstName.value.trim() === '') {
+      showError(firstName, 'First name is required.');
+      isValid = false;
+    } else {
+      clearError(firstName);
+    }
+
+    if (lastName.value.trim() === '') {
+      showError(lastName, 'Last name is required.');
+      isValid = false;
+    } else {
+      clearError(lastName);
+    }
+
+    if (subject.value.trim() === '') {
+      showError(subject, 'Please enter a subject.');
+      isValid = false;
+    } else {
+      clearError(subject);
+    }
+
+    if (!emailPattern.test(email.value.trim())) {
+      showError(email, 'Please enter a valid email address.');
+      isValid = false;
+    } else {
+      clearError(email);
+    }
+
+    if (message.value.trim() === '') {
+      showError(message, 'Message cannot be empty.');
+      isValid = false;
+    } else {
+      clearError(message);
+    }
+
+    if (isValid) {
+      const submitBtn = document.querySelector('.form-submit');
+      const btnText = submitBtn.querySelector('.submit-btn-text');
+
+      const scramble = startScramble(btnText);
+
+      submitBtn.style.filter = 'grayscale(100%)';
+      submitBtn.disabled = true;
+
+      const formData = {
+        firstName: firstName.value.trim(),
+        lastName: lastName.value.trim(),
+        email: email.value.trim(),
+        subject: subject.value.trim(),
+        message: message.value.trim()
+      };
+
+      try {
+        const response = await fetch('contact_handler.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          contactForm.reset();
+
+          stopScramble(scramble, btnText);
+
+          showMessage(
+            'Thank you! Your message has been sent successfully.',
+            'success'
+          );
+
+          submitBtn.disabled = false;
+          submitBtn.style.filter = 'grayscale(0)';
+        } else {
+          stopScramble(scramble, btnText);
+
+          showMessage(
+            result.message || 'Failed to send message. Please try again.',
+            'error'
+          );
+
+          submitBtn.disabled = false;
+          submitBtn.style.filter = 'grayscale(0)';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+
+        stopScramble(scramble, btnText);
+
+        showMessage(
+          'Network error. Please check your connection and try again.',
+          'error'
+        );
+
+        submitBtn.disabled = false;
+        submitBtn.style.filter = 'grayscale(0)';
+      }
+    }
+  });
+}
+
