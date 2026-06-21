@@ -240,10 +240,6 @@ gsap.from(".artifact-sticky-box", {
   duration: 1.2,
   ease: "power2.out"
 });
-
-// ==========================================
-// 2. LEFT DOSSIER CARDS LOOP
-// ==========================================
 // This handles the individual slide-ins for your 3 scrolling cards
 gsap.utils.toArray(".project-dossier").forEach((card) => {
   gsap.from(card, {
@@ -257,5 +253,114 @@ gsap.utils.toArray(".project-dossier").forEach((card) => {
     filter: "blur(8px)",
     duration: 1.2,
     ease: "power2.out"
+  });
+});
+gsap.utils.toArray(".title-container").forEach((title) => {
+  gsap.from(title, {
+    scrollTrigger: {
+      trigger: title,   
+      start: "top bottom-=150",  
+      toggleActions: "play none none reverse",
+    },
+    y: -100,         
+    opacity: 0,
+    filter: "blur(8px)",
+    duration: 1.2,
+    ease: "power2.out"
+  });
+});
+gsap.utils.toArray(".animate-right-2").forEach((content) => {
+  gsap.from(content, {
+    scrollTrigger: {
+      trigger: content,   
+      start: "top bottom-=150",  
+      toggleActions: "play none none reverse",
+    },
+    x: -100,         
+    opacity: 0,
+    filter: "blur(8px)",
+    duration: 1.2,
+    ease: "power2.out"
+  });
+});
+gsap.utils.toArray(".animate-left").forEach((content) => {
+  gsap.from(content, {
+    scrollTrigger: {
+      trigger: content,   
+      start: "top bottom-=150",  
+      toggleActions: "play none none reverse",
+    },
+    x: 100,         
+    opacity: 0,
+    filter: "blur(8px)",
+    duration: 1.2,
+    ease: "power2.out"
+  });
+});
+
+
+// ======================
+// Moving vertical segment
+// ======================
+
+const redSegment = document.querySelector(".moving-red-segment");
+const wrapper = document.querySelector(".center-line-wrapper");
+
+if (redSegment && wrapper) {
+  const updateSegment = () => {
+    const moveDistance =
+      wrapper.offsetHeight - redSegment.offsetHeight;
+
+
+      gsap.to(".moving-red-segment", {
+        height: "100%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".evolution-parent",
+          start: "top center",
+          end: "bottom center",
+          scrub: true
+        }
+      });
+  };
+
+  updateSegment();
+
+  window.addEventListener("resize", () => {
+    ScrollTrigger.refresh();
+  });
+}
+
+// ======================
+// Horizontal fills
+// ======================
+
+gsap.utils.toArray(".content-block").forEach((block) => {
+  const fill = document.createElement("div");
+  fill.classList.add("connector-fill");
+
+  fill.style.position = "absolute";
+  fill.style.bottom = "-2px";
+  fill.style.height = "2px";
+  fill.style.background = "red";
+  fill.style.width = "0";
+
+  if (block.closest(".connect-right")) {
+    fill.style.right = "0";
+  } else {
+    fill.style.left = "0";
+  }
+
+  block.appendChild(fill);
+
+  gsap.to(fill, {
+    width: "100%",
+    ease: "power3",
+    scrollTrigger: {
+      trigger: block,
+      start: "top bottom-=800",
+      end: "top center",
+      toggleActions: "play none reverse reverse"
+    }
   });
 });

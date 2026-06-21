@@ -197,9 +197,9 @@ header {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding: 120px 24px 60px; 
+    padding-top: 80px;
+    padding-left: 30px;
   }
-
   .text-container {
     height: auto;
     margin: auto 0;       
@@ -208,7 +208,7 @@ header {
   }
 
   .nav-container {
-    padding: 20px 24px 0;
+    padding: 0;
     text-align: center;
   }
   .nav-logo {
@@ -488,8 +488,6 @@ body {
   font-weight: 500;
   letter-spacing: 1px;
 }
-.projects-scroll-container
-/* Responsive adjustment layer for mid-size tablet devices */
 @media screen and (max-width: 1024px) {
   .project-title {
     font-size: 42px;
@@ -501,10 +499,7 @@ body {
   padding-right: 100px;
   position: relative;          /* Reset from absolute or sticky so GSAP can take over */
 }
-#about {
-  height: 100vh;
-  width: 100%;
-}
+
 #projects {
   width: 100%;
   position: relative;
@@ -524,7 +519,7 @@ body {
 
   /* 2. Flatten internal padding on mobile boxes so text doesn't clip */
   .project-dossier {
-    padding: 24px;
+    padding: 10px;
     min-height: auto; /* Lets the height adapt cleanly to mobile text flow */
   }
 
@@ -538,4 +533,208 @@ body {
   .project-title {
     font-size: 32px;
   }
+}
+#about {
+  min-height: 100vh;
+  width: 100%;
+  padding: 50px 20px;
+}
+
+.evolution-parent {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.evo-title {
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--color-light);
+  margin-bottom: 15px;
+}
+
+.evo-desc {
+  color: var(--description);
+  font-family: var(--secondary-font);
+  line-height: 1.6;
+}
+
+.evo-num {
+  font-weight: 900;
+  font-size: 200px;
+  font-family: var(--secondary-font);
+  text-align: center;
+}
+
+.evo-row {
+  margin-bottom: 0;
+  padding-bottom: 80px;
+}
+
+@media (min-width: 992px) {
+
+  /* Gray vertical rail */
+  .evolution-parent::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(61, 79, 74, 0.25);
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  /* Center wrapper */
+  .center-line-wrapper {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    transform: translateX(-50%);
+    z-index: 2;
+    overflow: hidden;
+  }
+
+  /* Moving red segment */
+  .moving-red-segment {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: red;
+  }
+
+  /* Cards */
+  .content-block {
+    position: relative;
+  }
+
+  .connect-right .content-block {
+    border-bottom: 2px solid rgba(61, 79, 74, 0.25);
+    padding: 20px 40px 40px 0;
+  }
+
+  .connect-left .content-block {
+    border-bottom: 2px solid rgba(61, 79, 74, 0.25);
+    padding: 20px 0 40px 40px;
+  }
+
+  /* Red horizontal fill */
+  .content-block::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    height: 2px;
+    width: 0%;
+    background: red;
+  }
+
+  /* Left card: start at center and grow left */
+  .connect-right .content-block::after {
+    right: 0;
+  }
+
+  /* Right card: start at center and grow right */
+  .connect-left .content-block::after {
+    left: 0;
+  }
+}
+.about-link {
+  color: var(--color-light);
+  text-decoration: none;
+}
+.about-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 991.98px) {
+  .center-line-wrapper,
+  .moving-red-segment,
+  .evolution-parent::before,
+  .content-block::after,
+  .connector-fill {
+    display: none !important;
+  }
+
+  .connect-right .content-block,
+  .connect-left .content-block {
+    border-bottom: none;
+    padding: 20px 0 40px;
+  }
+}
+
+
+#contacts {
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--color-dark);
+}
+
+.contact-section-wrapper {
+  min-height: 70vh;
+  width: 100%;
+  padding: 0;
+  position: relative;
+}
+
+.contact-section-wrapper .row {
+  align-items: stretch;
+}
+.contact-info {
+  background-color: var(--color-light);
+  height: 100%;
+  width: 100%;
+  padding: 30px;
+}
+.contact-form {
+  height: 100%;
+  width: 100%;
+  padding: 30px;
+}
+.info-title {
+  color: var(--color-dark);
+  font-family: var(--secondary-font);
+  font-size: 30px;
+  text-align: center;
+  font-weight: 700;
+  padding-bottom: 50px;
+}
+.info-container {
+  min-height: 200px;
+  width: 100%;
+  background-color: black;
+  font-family: monospace;
+  color: var(--secondary);
+  padding: 20px;
+  padding-left: 40px;
+}
+.info {
+  padding-bottom: 10px;
+}
+ul {
+  list-style-type: none;
+  padding-left: 0;   
+  margin-left: 0; 
+}
+.blinking-dash {
+  font-weight: bold;
+  animation: cmd-dash-blink 1.2s step-start infinite;
+}
+
+@keyframes cmd-dash-blink {
+  0%, 100% {
+    opacity: 1; 
+  }
+  50% {
+    opacity: 0; 
+  }
+}
+.style-dim {
+  opacity: 0.4; /* Makes it look like background secondary system data */
+  font-size: 14px; /* Slightly smaller text accentuation */
+  line-height: 1.6;
 }
