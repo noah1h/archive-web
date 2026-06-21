@@ -21,12 +21,10 @@
   --border: #b8c4bc;
   --ring: var(--color-dark);
   --radius: 0.5rem;
-  --gradient: linear-gradient(
-    135deg,
-    var(--color-dark) 0%,
-     #1b1818 100%
-  );
+  --gradient:  radial-gradient(circle at center, #1c1c1c 0%, var(--color-dark) 40%);
+
   --main-font:  "Josefin Sans", sans-serif;
+  --secondary-font:  "JetBrains Mono", monospace;
 }
 
 *,
@@ -78,6 +76,7 @@ header {
   height: 100vh;
   width: 100%;
   position: relative;
+  background: var(--gradient);
 }
 .text-container {
   height: 90%;
@@ -268,5 +267,275 @@ header {
   .highlight {
     font-size: 52px;     
     word-spacing: -5px;
+  }
+}
+
+#projects {
+  min-height: 200vh;
+  width:100%;
+  background-color: var(--color-dark);
+  padding-left: 80px;
+  padding-right: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+.chapter-text-2 {
+  color: var(--description);
+  font-weight: 100;
+  font-family: var(--secondary-font);
+  letter-spacing: 3px;
+}
+.section-title {
+  font-weight: 700;
+  font-size: 70px;
+}
+body {
+  overflow-x: hidden;
+}
+@media (max-width:768px) {
+  .section-title {
+    font-size: 40px;
+  }
+  .title-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.terminal-dashboard-wrapper {
+  width: 100%;
+  height: 100%;
+  background: #161616; /* Subtle matte gray contrast against charcoal background */
+  border: 1px solid rgba(169, 5, 5, 0.2); /* Clean crimson framing border */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+  font-family: "JetBrains Mono", monospace;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 1. Header Coordinates & Scanner line */
+.terminal-header-pane {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--description);
+  opacity: 0.7;
+}
+
+.terminal-pulse-scanner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-light);
+  box-shadow: 0 0 10px var(--color-light);
+  opacity: 0.3;
+  animation: scan-loop 4s infinite linear;
+}
+
+@keyframes scan-loop {
+  0% { top: 0%; }
+  50% { top: 100%; }
+  100% { top: 0%; }
+}
+
+/* 2. Middle Core: Large File Index Counter */
+.terminal-body-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.active-file-id {
+  font-size: 84px;
+  font-weight: 900;
+  color: #1a1a1a; /* Starts out very dark and hidden */
+  letter-spacing: -2px;
+  transition: color 0.4s ease-in-out, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* When active, GSAP will trigger this state class style */
+.active-file-id.active {
+  color: var(--color-light); /* Illuminates into your glowing crimson red */
+  transform: scale(1.05);
+}
+
+.active-file-status {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--description);
+  text-transform: uppercase;
+}
+
+/* 3. Bottom Terminal Log Feed */
+.terminal-footer-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--description);
+  opacity: 0.5;
+}
+/* Container for left scrollable column */
+.projects-scroll-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15vh; 
+}
+
+/* The Core Dossier Box Layout */
+.project-dossier {
+  background: #161616; /* Matches the right terminal background card shading */
+  border: 1px solid rgba(117, 124, 119, 0.15); /* Soft gray default frame line */
+  display: flex;
+  flex-direction: column;
+  min-height: 60vh;
+  padding: 40px;
+  position: relative;
+  transition: border-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+  width: 90%;
+}
+
+/* Micro-interaction: The entire card outline lights up slightly on hover */
+.project-dossier:hover {
+  border-color: rgba(169, 5, 5, 0.3); /* Subtle crimson frame highlight */
+  box-shadow: 0 0 20px rgba(169, 5, 5, 0.05);
+}
+
+/* Header Grid Module */
+.dossier-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(117, 124, 119, 0.2); /* Clean technical split line */
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.dossier-tag {
+  color: var(--color-light); /* Crimson color code pop */
+  font-weight: 700;
+}
+
+.dossier-status {
+  color: var(--description);
+  opacity: 0.6;
+}
+
+/* Central Project Title and Description Copy */
+.dossier-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-title {
+  font-family: var(--main-font); /* Josefin Sans */
+  font-size: 54px;
+  font-weight: 900;
+  color: #F5F5F7; /* Glowing white text color */
+  margin: 0 0 20px 0;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  transition: color 0.3s ease;
+}
+
+/* When hovering over individual dossier components, title turns crimson */
+.project-dossier:hover .project-title {
+  color: var(--color-light);
+}
+
+.project-description {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--description);
+  max-width: 480px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+/* Footer Grid Metadata Module */
+.dossier-footer {
+  display: flex;
+  gap: 40px;
+  border-top: 1px dashed rgba(117, 124, 119, 0.2);
+  padding-top: 20px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+}
+
+.dossier-meta-item {
+  display: flex;
+  gap: 8px;
+}
+
+.meta-label {
+  color: var(--description);
+  opacity: 0.5;
+}
+
+.meta-value {
+  color: #F5F5F7;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.projects-scroll-container
+/* Responsive adjustment layer for mid-size tablet devices */
+@media screen and (max-width: 1024px) {
+  .project-title {
+    font-size: 42px;
+  }
+}
+.artifact-sticky-box {
+  width: 100%;
+  height: calc(100vh - 200px); /* Proportions fit neatly inside the screen */
+  padding-right: 100px;
+  position: relative;          /* Reset from absolute or sticky so GSAP can take over */
+}
+#about {
+  height: 100vh;
+  width: 100%;
+}
+#projects {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-dark);
+  padding: 100px 0;
+  overflow-x: clip; 
+}
+@media screen and (max-width: 768px) {
+  /* ... keep your existing mobile styles ... */
+
+  /* 1. Reset massive left spacing blowout on mobile dossier stack */
+  .projects-scroll-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    gap: 40px; /* Squeezes vertical gap on small screens */
+  }
+
+  /* 2. Flatten internal padding on mobile boxes so text doesn't clip */
+  .project-dossier {
+    padding: 24px;
+    min-height: auto; /* Lets the height adapt cleanly to mobile text flow */
+  }
+
+  /* 3. Strip structural right padding from the sticky right-side wrapper box */
+  .artifact-sticky-box {
+    padding-right: 0 !important;
+    height: auto; /* Prevents viewport height calculation leaks */
+  }
+
+  /* 4. Fix oversized title layout on tiny screens */
+  .project-title {
+    font-size: 32px;
   }
 }

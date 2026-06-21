@@ -53,42 +53,7 @@ document.querySelectorAll('.scramble-hover').forEach(element => {
   gsap.set(".header-text", { opacity: 1 });
 
   const tl = gsap.timeline();
-
-  tl.fromTo(".animate-down", 
-    { 
-      opacity: 0, 
-      y: -30
-    }, 
-    { 
-      opacity: 1, 
-      scaleX: 1,
-      y:0,
-      duration: 0.8,
-      ease: "power2.inOut",
-      onStart: () => {
-        const trigger = document.querySelector('.animate-right');
-        if(trigger) trigger.dispatchEvent(new Event('mouseenter'));
-      }
-    }
-  );
-  tl.fromTo(".animate-up", 
-    { 
-      opacity: 0, 
-      y: 30
-    }, 
-    { 
-      opacity: 1, 
-      scaleX: 1,
-      y:0,
-      duration: 0.5,
-      ease: "power2.inOut",
-      onStart: () => {
-        const trigger = document.querySelector('.animate-right');
-        if(trigger) trigger.dispatchEvent(new Event('mouseenter'));
-      }
-    }
-  );
-tl.fromTo(".animate-right", 
+  tl.fromTo(".animate-right", 
     { 
       opacity: 0, 
       x: -30
@@ -116,6 +81,28 @@ tl.fromTo(".animate-right",
     }, 
     "<" 
   );
+  
+  tl.fromTo(".header-animate", 
+    { 
+      opacity: 0, 
+      y: 30,
+      filter: "blur(5px)"
+    }, 
+    { 
+      opacity: 1, 
+      scaleX: 1,
+      y:0,
+      filter: "blur(0px)",
+      duration: 0.8,
+      stagger:0.2,
+      ease: "power2.inOut",
+      onStart: () => {
+        const trigger = document.querySelector('.animate-right');
+        if(trigger) trigger.dispatchEvent(new Event('mouseenter'));
+      }
+    }
+  );
+
   tl.fromTo(".continue-text", 
     { 
       opacity: 0, 
@@ -123,7 +110,7 @@ tl.fromTo(".animate-right",
     }, 
     { 
       opacity: 1, 
-      delay: 1,
+      delay: 0.2,
       y:0,
       duration: 0.8,
       ease: "power2.inOut",
@@ -133,6 +120,24 @@ tl.fromTo(".animate-right",
       }
     }
   );
+  
+    window.addEventListener('scroll', function fadeOutScrollText() {
+      // Animate the text out cleanly
+      gsap.to(".continue-text", {
+        opacity: 0,
+        y: 20,                // Slides downward out of frame
+        duration: 0.5,
+        ease: "power2.inOut",
+        onComplete: () => {
+          // Optional: completely hide the display node so it doesn't intercept clicks
+          const el = document.querySelector(".continue-text");
+          if (el) el.style.display = "none";
+        }
+      });
+
+      // Remove the listener immediately so the animation doesn't keep firing as they scroll further
+      window.removeEventListener('scroll', fadeOutScrollText);
+    });
 
   function updateLiveClock() {
     const clockElement = document.getElementById("live-clock");
@@ -178,3 +183,79 @@ tl.fromTo(".animate-right",
   updateLiveClock();
   setInterval(updateLiveClock, 1000);
   
+
+
+  function updateArtifactDisplay(id, title) {
+    const fileIdText = document.querySelector(".active-file-id");
+    const fileStatusText = document.querySelector(".active-file-status");
+    if (!fileIdText || !fileStatusText) return;
+  
+    // 1. Instantly update the alphanumeric index strings
+    fileIdText.innerText = `[ AR_00${id} ]`;
+    fileStatusText.innerText = `INDEXED // ${title}`;
+  
+    // 2. Add the active class to ignite the crimson glow styling rule
+    fileIdText.classList.add("active");
+  
+    // Optional micro-log line insertion simulator
+    const footerLog = document.querySelector(".terminal-footer-pane");
+    if(footerLog) {
+      const newLine = document.createElement("div");
+      newLine.className = "terminal-log-line";
+      newLine.innerText = `> MOUNTED_CORE_NODE_0${id}_SUCCESS`;
+      footerLog.appendChild(newLine);
+      if(footerLog.children.length > 4) footerLog.children[0].remove(); // Keep line count limited
+    }
+  }
+  
+
+gsap.registerPlugin(ScrollTrigger);
+
+ScrollTrigger.create({
+  trigger: "#projects",       
+  start: "top top-=200",       
+  end: "bottom bottom",       
+  pin: ".artifact-sticky-box", 
+  pinSpacing: false,         
+  scrub: true,              
+  invalidateOnRefresh: true 
+});
+
+// Register your plugins safely
+gsap.registerPlugin(ScrollTrigger);
+
+// ==========================================
+// 1. FIXED DASHBOARD REVEAL (Runs ONLY ONCE)
+// ==========================================
+// Move this OUTSIDE of any loops so it fades in cleanly from the right
+gsap.from(".artifact-sticky-box", {
+  scrollTrigger: {
+    trigger: "#projects",         // Fires when the entire Chapter 2 section arrives
+    start: "top bottom-=250",     // Starts when the section moves into view
+    toggleActions: "play none none reverse", // Plays forward on scroll down, reverses on scroll up
+  },
+  x: 100,                         // Smoothly glides in from the right edge
+  opacity: 0,                     // Fades in from hidden
+  filter: "blur(8px)",            // Soft cinematic system blur
+  duration: 1.2,
+  ease: "power2.out"
+});
+
+// ==========================================
+// 2. LEFT DOSSIER CARDS LOOP
+// ==========================================
+// This handles the individual slide-ins for your 3 scrolling cards
+gsap.utils.toArray(".project-dossier").forEach((card) => {
+  gsap.from(card, {
+    scrollTrigger: {
+      trigger: card,              // Tracks each card independently
+      start: "top bottom-=50",    // Fires right before the card enters the screen bottom
+      toggleActions: "play none none reverse",
+    },
+    x: -100,                      // Slides in from the left
+    opacity: 0,
+    filter: "blur(8px)",
+    duration: 1.2,
+    ease: "power2.out"
+  });
+});
