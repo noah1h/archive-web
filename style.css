@@ -802,6 +802,33 @@ ul {
     padding-top: 20px;
   }
 }
+@media (max-width:720px) {
+  .form-title {
+    padding-top: 20px;
+    font-size: 25px;
+  }
+  .info-title {
+    font-size: 25px;
+  }
+  .contact-form-section input::placeholder, .contact-form textarea::placeholder {
+    font-size: 13px;
+  }
+}
+@media (max-width:330px) {
+  .form-title {
+    padding-top: 20px;
+    font-size: 20px;
+  }
+  .info-title {
+    font-size: 20px;
+  }
+  .contact-form-section input::placeholder, .contact-form textarea::placeholder {
+    font-size: 12px;
+  }
+  .info {
+    font-size: 12px;
+  }
+}
 .system-footer-container {
   border-top: 1px solid rgba(61, 79, 74, 0.3); /* Matches your grid layout split lines */
   background-color: transparent;
@@ -901,4 +928,12 @@ ul {
   margin-top: 6px;
   transition: opacity 0.2s ease, transform 0.2s ease;
   cursor: pointer;
+}
+@media (max-width: 576px) {
+  .footer-row {
+    align-items: center !important;
+  }
+  .escape-link {
+    font-size: 12px;
+  }
 }
