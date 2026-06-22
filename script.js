@@ -37,7 +37,7 @@ document.querySelectorAll('.scramble-hover').forEach(element => {
         
         // Control speed: reveals roughly 1 true letter every 3 frames
         iterations += 1 / 3; 
-      }, 30); // Frame tick interval in milliseconds
+      }, 10); // Frame tick interval in milliseconds
     });
   
     // Instantly restore original clean text when the mouse leaves
@@ -47,9 +47,64 @@ document.querySelectorAll('.scramble-hover').forEach(element => {
     });
   });
 
-  
+  // Ensure ScrollTrigger is registered
+gsap.registerPlugin(ScrollTrigger);
 
-  // JSAP
+function initScrollScramble() {
+  const autoElements = document.querySelectorAll('.scramble-auto');
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+
+  autoElements.forEach((element) => {
+    const originalText = element.textContent.trim();
+    let interval = null; // Keeps track of active interval loops to prevent stacking overlapping glitches
+
+    // Reusable core animation sequence
+    const runScrambleEffect = () => {
+      // Clear any running scrambles on this element before firing a new one
+      clearInterval(interval);
+      
+      let iterations = 0;
+      interval = setInterval(() => {
+        element.textContent = originalText
+          .split("")
+          .map((letter, index) => {
+            if (letter === " ") return " ";
+            
+            if (index < iterations) {
+              return originalText[index];
+            }
+            return chars[Math.floor(Math.random() * chars.length)];
+          })
+          .join("");
+        
+        if (iterations >= originalText.length) {
+          clearInterval(interval);
+          element.textContent = originalText;
+        }
+        
+        iterations += 1 / 3;
+      }, 20);
+    };
+
+    // ScrollTrigger Engine Setup
+    ScrollTrigger.create({
+      trigger: element,
+      start: "top 85%",    // Fires when entering from the bottom of the screen
+      end: "bottom 15%",   // Tracks the exit baseline boundary at the top of the screen
+      onEnter: () => {
+        runScrambleEffect(); // Fires moving down the page
+      },
+      onEnterBack: () => {
+        runScrambleEffect(); // Fires moving back up the page
+      }
+    });
+  });
+}
+
+// Fire the module engine alongside your other triggers
+document.addEventListener('DOMContentLoaded', initScrollScramble);
+
+  // GSAP
   gsap.set(".header-text", { opacity: 1 });
 
   const tl = gsap.timeline();
@@ -558,4 +613,44 @@ if (contactForm) {
     }
   });
 }
+
+function initializeFooterClock() {
+  const clockElement = document.getElementById('runtimeClock');
+  if (!clockElement) return;
+
+  setInterval(() => {
+    const now = new Date();
+    // Formats into a clean 24-hour terminal timestamp string
+    const timeString = now.toTimeString().split(' ')[0]; 
+    clockElement.textContent = `LOC_TIME:: Cairo // ${timeString}`;
+  }, 1000);
+}
+
+// Fire the clock sequence initialization
+document.addEventListener('DOMContentLoaded', initializeFooterClock);
+
+// Register the ScrollTrigger plugin with GSAP
+gsap.registerPlugin(ScrollTrigger);
+
+function initFooterReveal() {
+  // Only trigger on desktop/tablet layouts where side-by-side grids are active
+  ScrollTrigger.matchMedia({
+    "(min-width: 768px)": function() {
+      
+      // Pin the contact section while scrolling past it
+      ScrollTrigger.create({
+        trigger: "#contacts",
+        start: "top top-=10",      // Start locking when contacts hit the top edge
+        end: "bottom top",    // Keep locked until you scroll the height of the section
+        pin: true,            // Freeze it in place
+        pinSpacing: false,    // Allows the footer to naturally overlap without empty gaps
+        id: "contactPin"
+      });
+      
+    }
+  });
+}
+
+// Fire the setup after page load assets are ready
+window.addEventListener("DOMContentLoaded", initFooterReveal);
 

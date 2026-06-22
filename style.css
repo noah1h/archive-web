@@ -669,6 +669,8 @@ body {
 
 
 #contacts {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   width: 100%;
   background-color: var(--color-dark);
@@ -764,9 +766,10 @@ ul {
   width: 100%;
   border-radius: 20px;
 }
-
 .contact-form-section input::placeholder, .contact-form textarea::placeholder {
   transition: all 0.3s ease;
+  text-transform: uppercase;
+  font-family: var(--secondary-font);
 }
 .contact-form-section input:focus, .contact-form textarea:focus {
     outline: none; 
@@ -793,4 +796,109 @@ ul {
 .form-title {
   font-size: 30px;
   font-weight: 700;
+}
+@media (max-width:1024px) {
+  .form-title {
+    padding-top: 20px;
+  }
+}
+.system-footer-container {
+  border-top: 1px solid rgba(61, 79, 74, 0.3); /* Matches your grid layout split lines */
+  background-color: transparent;
+  padding: 40px 20px;
+  font-family: 'Consolas', 'Courier New', Courier, monospace;
+  font-size: 13px;
+  letter-spacing: 1px;
+  height: 50vh;
+}
+
+.footer-chapter {
+  color: var(--color-light); /* Lights up in your accent brand color */
+  font-weight: bold;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* --- ACTIVE BEACON PULSE --- */
+.system-pulse-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.5;
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #00ff66; /* Classic terminal green operational pulse */
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00ff66;
+  animation: beacon-glow 2s infinite ease-in-out;
+}
+
+.status-text, .system-runtime, .copyright-text {
+  color: #ffffff;
+  opacity: 0.4;
+}
+
+/* --- INTERACTIVE TOP RETURN LINK --- */
+.escape-link {
+  display: block;
+  color: var(--description);
+  text-decoration: none;
+  margin-top: 6px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.escape-link:hover {
+  opacity: 0.8;
+  transform: translateX(-2px);
+}
+
+@keyframes beacon-glow {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+
+.system-footer-container {
+  position: relative;
+  z-index: 2; 
+  background-color: #0d0d0d;
+  margin-top: 0 !important;
+  box-shadow: 0 -30px 50px rgba(0, 0, 0, 0.9);
+}
+.footer-links-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Spaces out your terminal lines cleanly */
+  width: 100%;
+}
+
+/* On desktop, make sure the links right-align cleanly to hug the screen edge */
+@media (min-width: 768px) {
+  .footer-links-grid {
+    align-items: flex-end;
+  }
+}
+
+/* On mobile, let them snap back to the left margin for a natural code-block look */
+@media (max-width: 767px) {
+  .footer-links-grid {
+    align-items: flex-start;
+  }
+}
+.escape-link-title {
+  font-size: 25px;
+  font-weight: 600;
+}
+.return-link {
+  display: block;
+  color: var(--color-light);
+  text-decoration: none;
+  margin-top: 6px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
 }
