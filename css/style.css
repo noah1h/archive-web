@@ -26,7 +26,15 @@
   --main-font:  "Josefin Sans", sans-serif;
   --secondary-font:  "JetBrains Mono", monospace;
 }
-
+.animate-left,
+.animate-right,
+.animate-right-2,
+.project-dossier,
+.title-container {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
 *,
 *::before,
 *::after {
@@ -51,7 +59,15 @@ h1 {
   letter-spacing: -0.02em;
   color: var(--foreground);
 }
-
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
 p {
   font-size: 1.125rem;
   line-height: 1.6;
@@ -285,9 +301,8 @@ header {
   text-align: center;
 }
 }
-
 #projects {
-  min-height: 200vh;
+  min-height: 100vh;
   width:100%;
   background-color: var(--color-dark);
   padding-left: 80px;
@@ -949,7 +964,7 @@ ul {
   border-top: 1px solid rgba(61, 79, 74, 0.3); /* Matches your grid layout split lines */
   background-color: transparent;
   padding: 40px 20px;
-  font-family: 'Consolas', 'Courier New', Courier, monospace;
+  font-family: var(--secondary-font);
   font-size: 13px;
   letter-spacing: 1px;
   min-height: 50vh;

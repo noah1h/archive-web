@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCHIVE_ROOT Documentation</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f7f7;
+      color: #222;
+      line-height: 1.8;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 25px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 50px;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 40px;
+      align-self: start;
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .sidebar h3 {
+      margin-bottom: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      text-decoration: none;
+      color: #444;
+      margin-bottom: 12px;
+      transition: .3s;
+    }
+
+    .sidebar a:hover {
+      color: #000;
+      transform: translateX(5px);
+    }
+
+    .content section {
+      background: white;
+      padding: 35px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    h3 {
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      margin-bottom: 15px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    code {
+      background: #f1f1f1;
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-family: Consolas, monospace;
+    }
+
+    pre {
+      background: #111;
+      color: #f1f1f1;
+      padding: 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    .note {
+      background: #fff3cd;
+      border-left: 5px solid #ffc107;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 50px 20px;
+      color: #777;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+
+      header h1 {
+        font-size: 2.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>ARCHIVE_ROOT Documentation</h1>
+    <p>
+      Cinematic Terminal-Inspired Developer Portfolio Template
+    </p>
+  </header>
+
+  <div class="layout">
+
+    <aside class="sidebar">
+      <h3>Contents</h3>
+
+      <a href="#overview">Overview</a>
+      <a href="#features">Features</a>
+      <a href="#installation">Installation</a>
+      <a href="#structure">Folder Structure</a>
+      <a href="#libraries">Libraries</a>
+      <a href="#customization">Customization</a>
+      <a href="#contact">Contact Form</a>
+      <a href="#browser">Browser Support</a>
+      <a href="#credits">Credits</a>
+      <a href="#support">Support</a>
+      <a href="#changelog">Changelog</a>
+    </aside>
+
+    <main class="content">
+
+      <section id="overview">
+        <h2>Overview</h2>
+
+        <p>
+          Thank you for purchasing
+          <strong>ARCHIVE_ROOT</strong>.
+        </p>
+
+        <p>
+          ARCHIVE_ROOT is a cinematic, terminal-inspired portfolio
+          template built for developers, designers, and creatives who
+          want a unique digital presence.
+        </p>
+
+        <p>
+          The template is fully responsive and built using modern
+          front-end technologies including HTML5, CSS3,
+          Bootstrap 5, JavaScript, GSAP, and PHPMailer.
+        </p>
+      </section>
+
+      <section id="features">
+        <h2>Features</h2>
+
+        <ul>
+          <li>Fully Responsive Design</li>
+          <li>Terminal / Cyberpunk Aesthetic</li>
+          <li>Bootstrap 5 Grid System</li>
+          <li>GSAP Animations</li>
+          <li>ScrollTrigger Effects</li>
+          <li>Text Scramble Animations</li>
+          <li>Project Showcase Section</li>
+          <li>Animated Timeline</li>
+          <li>Sticky Footer Reveal</li>
+          <li>AJAX Contact Form</li>
+          <li>PHPMailer Integration</li>
+          <li>Clean and Organized Code</li>
+          <li>Easy Customization</li>
+        </ul>
+      </section>
+
+      <section id="installation">
+        <h2>Installation</h2>
+
+        <h3>Step 1</h3>
+
+        <p>
+          Extract the downloaded ZIP file.
+        </p>
+
+        <h3>Step 2</h3>
+
+        <p>
+          Upload the template files to your web server.
+        </p>
+
+        <h3>Step 3</h3>
+
+        <p>
+          Open <code>index.html</code> and begin customizing
+          your content.
+        </p>
+
+        <h3>Step 4</h3>
+
+        <p>
+          Configure the contact form if you plan to receive
+          emails through the website.
+        </p>
+      </section>
+
+      <section id="structure">
+        <h2>Folder Structure</h2>
+
+<pre>
+archive-root/
+│
+├── index.html
+├── css/
+│   └── style.css
+│
+├── script/
+│   └── script.js
+│
+├── php/
+│   └── contact_handler.php
+│
+└── documentation/
+    └── documentation.html
+</pre>
+
+      </section>
+
+      <section id="libraries">
+        <h2>Included Libraries</h2>
+
+        <ul>
+          <li>Bootstrap 5</li>
+          <li>GSAP</li>
+          <li>ScrollTrigger</li>
+          <li>PHPMailer</li>
+        </ul>
+      </section>
+
+      <section id="customization">
+        <h2>Customization</h2>
+
+        <h3>Personal Information</h3>
+
+<pre>
+EMAIL:: your@email.com
+LOCATION:: Cairo, Egypt
+GITHUB:: github.com/yourusername
+</pre>
+
+        <h3>Changing Colors</h3>
+
+<pre>
+:root {
+  --color-light: #E4F1E8;
+  --color-dark: #0D2320;
+}
+</pre>
+
+        <h3>Changing Text</h3>
+
+        <p>
+          All titles, descriptions, links, and portfolio data can
+          be edited directly inside:
+        </p>
+
+<pre>
+index.html
+</pre>
+
+        <h3>Changing Images</h3>
+
+        <p>
+          Replace the images inside the
+          <code>images</code> folder and update the
+          corresponding paths in the HTML.
+        </p>
+
+      </section>
+
+      <section id="contact">
+        <h2>Contact Form Setup</h2>
+
+        <h3>Install PHPMailer</h3>
+
+<pre>
+composer require phpmailer/phpmailer
+</pre>
+
+        <h3>Configure Email Settings</h3>
+
+<pre>
+'to_email' => 'your-email@example.com',
+'to_name' => 'Your Name',
+
+'smtp_host' => 'smtp.gmail.com',
+'smtp_port' => 587,
+'smtp_username' => 'your-email@gmail.com',
+'smtp_password' => 'your-app-password',
+</pre>
+
+        <h3>CORS Configuration</h3>
+
+<pre>
+$allowed_origin = 'https://yourdomain.com';
+</pre>
+
+        <div class="note">
+          If you use Gmail, you must generate an
+          App Password and use it instead of your normal
+          Google account password.
+        </div>
+
+      </section>
+
+      <section id="browser">
+        <h2>Browser Support</h2>
+
+        <ul>
+          <li>Google Chrome</li>
+          <li>Microsoft Edge</li>
+          <li>Mozilla Firefox</li>
+          <li>Safari</li>
+          <li>Opera</li>
+        </ul>
+      </section>
+
+      <section id="credits">
+        <h2>Credits</h2>
+
+        <ul>
+          <li>Bootstrap Team</li>
+          <li>GSAP by GreenSock</li>
+          <li>PHPMailer Team</li>
+        </ul>
+      </section>
+
+      <section id="support">
+        <h2>Support</h2>
+
+        <p>
+          Thank you for purchasing ARCHIVE_ROOT.
+        </p>
+
+        <p>
+          If you have questions, need assistance,
+          or require customization services,
+          please contact:
+        </p>
+
+<pre>
+Email: noh.ms.sabry@gmail.com
+GitHub: https://github.com/noah1h
+</pre>
+
+      </section>
+
+      <section id="changelog">
+        <h2>Changelog</h2>
+
+<pre>
+Version 1.0.0
+
+- Initial Release
+- Responsive Layout
+- Terminal-Inspired Design
+- GSAP Animations
+- ScrollTrigger Effects
+- AJAX Contact Form
+- PHPMailer Integration
+- Documentation Included
+</pre>
+
+      </section>
+
+    </main>
+
+  </div>
+
+</div>
+
+<footer>
+  © 2026 ARCHIVE_ROOT. All Rights Reserved.
+</footer>
+
+</body>
+</html>
