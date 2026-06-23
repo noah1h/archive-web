@@ -32,7 +32,9 @@
 *::after {
   box-sizing: border-box;
 }
-
+.row>* {
+  padding: 0;
+}
 body {
   margin: 0;
   min-height: 100vh;
@@ -90,7 +92,6 @@ header {
   font-family: "JetBrains Mono", monospace;
   letter-spacing: 5px;
   font-weight: 500;
-  padding-left: 100px;
   padding-top: 30px;
   color: var(--description);
 }
@@ -252,6 +253,9 @@ header {
   }
 }
 
+.nav-status {
+  text-align: end;
+}
 
 @media screen and (max-width: 480px) {
   .nav-container {
@@ -261,13 +265,25 @@ header {
   }
   
   .nav-right {
-    padding-top: 0;        
+    padding-top: 0;   
+    font-size: 10px;  
+    width: 100%;   
   }
-
+  .nav-logo {
+    font-size: 12px;
+    width: 100%;
+  }
   .highlight {
     font-size: 52px;     
     word-spacing: -5px;
   }
+  
+.nav-status {
+  text-align: center;
+}
+.nav-logo-container {
+  text-align: center;
+}
 }
 
 #projects {
@@ -289,7 +305,7 @@ header {
   font-weight: 700;
   font-size: 70px;
 }
-body {
+body, header, section, footer {
   overflow-x: hidden;
 }
 @media (max-width:768px) {
@@ -299,6 +315,27 @@ body {
   .title-container {
     display: flex;
     flex-direction: column;
+  }
+  .highlight {
+    font-size: 40px;
+  }
+  .header-paragraph-text {
+    font-size: 12px;
+  }
+}
+@media (max-width:580px) {
+  .section-title {
+    font-size: 30px;
+  }
+  .title-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .highlight {
+    font-size: 40px;
+  }
+  .header-paragraph-text {
+    font-size: 12px;
   }
 }
 .terminal-dashboard-wrapper {
@@ -546,12 +583,6 @@ body {
   margin: 0 auto;
 }
 
-.evo-title {
-  font-size: 30px;
-  font-weight: 900;
-  color: var(--color-light);
-  margin-bottom: 15px;
-}
 
 .evo-desc {
   color: var(--description);
@@ -559,18 +590,103 @@ body {
   line-height: 1.6;
 }
 
+.evo-title {
+  font-size: clamp(1.5rem, 3vw, 30px);
+  font-weight: 900;
+  color: var(--color-light);
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+.evo-desc {
+  color: var(--description);
+  font-family: var(--secondary-font);
+  line-height: 1.7;
+  font-size: clamp(0.95rem, 1.3vw, 1rem);
+}
+
 .evo-num {
   font-weight: 900;
-  font-size: 200px;
+  font-size: clamp(5rem, 15vw, 200px);
   font-family: var(--secondary-font);
   text-align: center;
+  line-height: 1;
 }
 
 .evo-row {
-  margin-bottom: 0;
-  padding-bottom: 80px;
+  padding-bottom: clamp(50px, 8vw, 80px);
+}
+/* Tablet */
+@media (max-width: 992px) {
+  .project-dossier {
+    width: 100%;
+    min-height: auto;
+    padding: 32px;
+  }
+
+  .project-title {
+    font-size: 42px;
+  }
+
+  .project-description {
+    max-width: 100%;
+    font-size: 12px;
+  }
 }
 
+/* Phones */
+@media (max-width: 768px) {
+  .project-dossier {
+    padding: 28px 24px;
+  }
+
+  .dossier-header {
+    flex-direction: column;
+    gap: 12px;
+    font-size: 10px;
+    margin-bottom: 24px;
+  }
+
+  .project-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    line-height: 1;
+  }
+
+  .project-description {
+    font-size: 12px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .dossier-footer {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 576px) {
+  .project-dossier {
+    padding: 24px 20px;
+    width: 100%;
+  }
+
+  .project-title {
+    font-size: 13px;
+    letter-spacing: 0;
+  }
+
+  .project-description {
+    font-size: 8px;
+    line-height: 1.6;
+  }
+
+  .dossier-footer,
+  .dossier-meta-item {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
 @media (min-width: 992px) {
 
   /* Gray vertical rail */
@@ -672,14 +788,13 @@ body {
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  width: 100%;
+  max-width: 100%;
   background-color: var(--color-dark);
 }
 
 .contact-section-wrapper {
   min-height: 70vh;
   width: 100%;
-  padding: 0;
   position: relative;
 }
 
