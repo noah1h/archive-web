@@ -928,6 +928,7 @@ ul {
   .contact-form-section input::placeholder, .contact-form textarea::placeholder {
     font-size: 13px;
   }
+ 
 }
 @media (max-width:330px) {
   .form-title {
@@ -951,7 +952,7 @@ ul {
   font-family: 'Consolas', 'Courier New', Courier, monospace;
   font-size: 13px;
   letter-spacing: 1px;
-  height: 50vh;
+  min-height: 50vh;
 }
 
 .footer-chapter {
